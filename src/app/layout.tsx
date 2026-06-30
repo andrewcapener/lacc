@@ -27,6 +27,11 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Los Angeles Check Cashing | 3 LA Locations',
+    description: '3 Los Angeles Check Cashing Locations. 50% off your first check cashed.',
+  },
 }
 
 const organizationSchema = {

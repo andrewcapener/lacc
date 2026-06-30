@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { sanityFetch } from '@/sanity/client'
 import { getAllPostsForSitemapQuery } from '@/sanity/queries'
 
-const BASE_URL = 'https://www.losangelescheckcashing.com'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.losangelescheckcashing.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [

@@ -7,6 +7,10 @@ const nextConfig = {
       { source: '/services/', destination: '/our-services/', permanent: true },
       { source: '/home-page', destination: '/', permanent: true },
       { source: '/home-page/', destination: '/', permanent: true },
+      { source: '/forex', destination: '/money-exchange', permanent: true },
+      { source: '/forex/', destination: '/money-exchange/', permanent: true },
+      { source: '/category/uncategorized', destination: '/blog', permanent: true },
+      { source: '/category/uncategorized/', destination: '/blog/', permanent: true },
     ]
   },
   images: {
