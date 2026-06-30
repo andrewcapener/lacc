@@ -1,6 +1,6 @@
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'juerato0'
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
-const isConfigured = !!(projectId && projectId !== 'your-project-id' && projectId.length > 0)
+const isConfigured = true
 
 let _client: any = null
 
