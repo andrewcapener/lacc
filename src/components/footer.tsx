@@ -34,7 +34,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-[200px_1fr_1fr_1fr] gap-12">
+      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-[200px_1fr_1fr_1fr_1fr] gap-10">
         {/* Brand */}
         <div className="flex flex-col gap-6">
           <Image
@@ -67,8 +67,8 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Locations */}
-        {locations.slice(0, 2).map(loc => (
+        {/* All 3 locations */}
+        {locations.map(loc => (
           <div key={loc.name}>
             <p className="text-xs font-bold tracking-widest uppercase text-white/30 mb-5">{loc.name}</p>
             <p className="text-sm text-white/60 leading-relaxed mb-1">{loc.address}</p>
@@ -85,17 +85,9 @@ export default function Footer() {
         ))}
       </div>
 
-      {/* Canoga Park + bottom bar */}
+      {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-          <div className="flex flex-wrap gap-6 items-center">
-            <div>
-              <span className="text-xs font-bold tracking-widest uppercase text-white/30 mr-3">Canoga Park</span>
-              <a href="tel:8187000490" className="text-xs font-bold text-white/60 hover:text-white transition-colors">
-                9015 DeSoto Ave. &nbsp;·&nbsp; (818) 700-0490
-              </a>
-            </div>
-          </div>
           <div className="flex flex-wrap gap-6 items-center">
             {[
               { label: 'Accessibility', href: '/accessibility/' },
