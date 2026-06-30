@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lacc-dev",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "/usr/local/opt/node/bin/node /tmp/lacc-website/node_modules/next/dist/bin/next dev -p 3002"],
+      "port": 3002,
+      "cwd": "/tmp/lacc-website"
+    }
+  ]
+}
