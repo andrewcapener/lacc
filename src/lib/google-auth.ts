@@ -27,7 +27,11 @@ export async function getGoogleAccessToken(scopes: string[]): Promise<string> {
   const rawKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
   if (!email || !rawKey) throw new Error('Missing GOOGLE_SERVICE_ACCOUNT_EMAIL or GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY')
 
-  const jwt = buildJwt(email, rawKey.replace(/\\n/g, '\n'), scopes)
+  const privateKey = rawKey
+    .replace(/\\n/g, '\n')
+    .replace(/\\r/g, '')
+    .trim()
+  const jwt = buildJwt(email, privateKey, scopes)
   const res = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
