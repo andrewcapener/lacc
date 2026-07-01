@@ -66,7 +66,7 @@ Write the post now. Remember to naturally use the keyword and related terms thro
   // Strip markdown code fences if present, then extract JSON
   const stripped = text.replace(/```(?:json)?\n?/g, '').trim()
   const jsonMatch = stripped.match(/\{[\s\S]*\}/)
-  if (!jsonMatch) throw new Error(`No JSON in Claude response for keyword: ${opportunity.query}`)
+  if (!jsonMatch) throw new Error(`No JSON in Claude response for "${opportunity.query}". Raw: ${stripped.slice(0, 500)}`)
 
   const parsed = JSON.parse(jsonMatch[0])
 
