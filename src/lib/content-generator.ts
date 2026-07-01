@@ -63,8 +63,9 @@ Write the post now. Remember to naturally use the keyword and related terms thro
 
   const text = message.content[0].type === 'text' ? message.content[0].text : ''
 
-  // Extract JSON from response
-  const jsonMatch = text.match(/\{[\s\S]*\}/)
+  // Strip markdown code fences if present, then extract JSON
+  const stripped = text.replace(/```(?:json)?\n?/g, '').trim()
+  const jsonMatch = stripped.match(/\{[\s\S]*\}/)
   if (!jsonMatch) throw new Error(`No JSON in Claude response for keyword: ${opportunity.query}`)
 
   const parsed = JSON.parse(jsonMatch[0])
