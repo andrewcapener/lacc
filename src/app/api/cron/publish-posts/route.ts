@@ -1,3 +1,5 @@
+export const runtime = 'nodejs'
+
 import { NextRequest, NextResponse } from 'next/server'
 import { getKeywordOpportunities } from '@/lib/search-console'
 import { generatePost } from '@/lib/content-generator'
