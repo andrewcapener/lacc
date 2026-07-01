@@ -22,13 +22,8 @@ Writing rules:
 - Word count: 800-1200 words
 - Tone: confident, helpful, human — not AI-sounding
 
-Return ONLY valid JSON in this exact format:
-{
-  "title": "Post title (60-70 chars, includes target keyword)",
-  "slug": "url-friendly-slug-matching-title",
-  "excerpt": "Meta description / excerpt (150-160 chars, includes keyword)",
-  "body": "Full post body in HTML (use <h2>, <h3>, <p>, <ul>, <li> tags)"
-}`
+Your response must be ONLY a raw JSON object with no explanation, no markdown, no code fences. Start your response with { and end with }. Use this exact format:
+{"title":"Post title (60-70 chars, includes target keyword)","slug":"url-friendly-slug-matching-title","excerpt":"Meta description / excerpt (150-160 chars, includes keyword)","body":"Full post body in HTML (use h2, h3, p, ul, li tags — no outer quotes in body HTML)"}`
 
 function slugify(str: string): string {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -55,7 +50,7 @@ This keyword gets significant impressions but we're not ranking well enough — 
 Write the post now. Remember to naturally use the keyword and related terms throughout.`
 
   const message = await client.messages.create({
-    model: 'claude-opus-4-8',
+    model: 'claude-sonnet-4-6',
     max_tokens: 2048,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],
