@@ -4,7 +4,7 @@ import { sanityFetch } from '@/sanity/client'
 import { getAllPostsQuery } from '@/sanity/queries'
 import PostCard from '@/components/post-card'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Check Cashing Tips & Resources | Blog',

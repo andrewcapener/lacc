@@ -13,7 +13,6 @@ async function getClient() {
     dataset,
     apiVersion: '2024-01-01',
     useCdn: false,
-    perspective: 'published',
   })
   return _client
 }

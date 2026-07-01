@@ -7,7 +7,7 @@ import Marquee from '@/components/marquee'
 import { sanityFetch } from '@/sanity/client'
 import { getRecentPostsQuery } from '@/sanity/queries'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 const marqueeItems = [
   'Check Cashing',
