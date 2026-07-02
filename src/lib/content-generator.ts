@@ -22,8 +22,11 @@ Writing rules:
 - Word count: 800-1200 words
 - Tone: confident, helpful, human — not AI-sounding
 
-Your response must be ONLY a raw JSON object with no explanation, no markdown, no code fences. Start your response with { and end with }. Use this exact format:
-{"title":"Post title (60-70 chars, includes target keyword)","slug":"url-friendly-slug-matching-title","excerpt":"Meta description / excerpt (150-160 chars, includes keyword)","body":"Full post body in HTML (use h2, h3, p, ul, li tags — no outer quotes in body HTML)"}`
+Return your response using ONLY these XML tags, nothing else before or after:
+<title>Post title (60-70 chars, includes target keyword)</title>
+<slug>url-friendly-slug</slug>
+<excerpt>Meta description 150-160 chars</excerpt>
+<body>Full HTML post body using h2, h3, p, ul, li tags</body>`
 
 function slugify(str: string): string {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -59,17 +62,20 @@ Write the post now. Remember to naturally use the keyword and related terms thro
   const text = message.content[0].type === 'text' ? message.content[0].text : ''
 
   // Strip markdown code fences if present, then extract JSON
-  const stripped = text.replace(/```(?:json)?\n?/g, '').trim()
-  const jsonMatch = stripped.match(/\{[\s\S]*\}/)
-  if (!jsonMatch) throw new Error(`No JSON in Claude response for "${opportunity.query}". Raw: ${stripped.slice(0, 500)}`)
+  // Extract fields individually — avoids JSON.parse failures from unescaped HTML in body
+  const titleMatch = text.match(/<title>([\s\S]*?)<\/title>/)
+  const slugMatch = text.match(/<slug>([\s\S]*?)<\/slug>/)
+  const excerptMatch = text.match(/<excerpt>([\s\S]*?)<\/excerpt>/)
+  const bodyMatch = text.match(/<body>([\s\S]*?)<\/body>/)
 
-  const parsed = JSON.parse(jsonMatch[0])
+  if (!titleMatch || !bodyMatch) throw new Error(`Could not extract fields from Claude response for "${opportunity.query}". Raw: ${text.slice(0, 300)}`)
 
+  const title = titleMatch[1].trim()
   return {
-    title: parsed.title,
-    slug: parsed.slug || slugify(parsed.title),
-    excerpt: parsed.excerpt,
-    bodyHtml: parsed.body,
+    title,
+    slug: slugMatch ? slugMatch[1].trim() : slugify(title),
+    excerpt: excerptMatch ? excerptMatch[1].trim() : '',
+    bodyHtml: bodyMatch[1].trim(),
     keyword: opportunity.query,
   }
 }
