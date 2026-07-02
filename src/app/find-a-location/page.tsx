@@ -6,6 +6,7 @@ import LocationCard from '@/components/location-card'
 export const metadata: Metadata = {
   title: 'Find a Check Cashing Location Near You in Los Angeles',
   description: 'Find the nearest Los Angeles Check Cashing location. We have 3 locations: Sherman Oaks, La Cienega (West LA), and Canoga Park.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/find-a-location/' },
 }
 
 export default function FindALocationPage() {

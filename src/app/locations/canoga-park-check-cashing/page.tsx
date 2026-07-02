@@ -5,6 +5,7 @@ import { locations, generateLocalBusinessSchema } from '@/lib/locations'
 export const metadata: Metadata = {
   title: 'Canoga Park Check Cashing — 9015 DeSoto Ave',
   description: 'Los Angeles Check Cashing in Canoga Park. 9015 DeSoto Ave., Canoga Park CA 91304. Call (818) 700-0490. Check cashing, currency exchange & more.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/locations/canoga-park-check-cashing/' },
 }
 
 const loc = locations[2]

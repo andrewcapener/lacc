@@ -5,6 +5,7 @@ import { locations, generateLocalBusinessSchema } from '@/lib/locations'
 export const metadata: Metadata = {
   title: 'Sherman Oaks Check Cashing — 15030 Ventura Blvd',
   description: 'Los Angeles Check Cashing in Sherman Oaks. 15030 Ventura Blvd #20, Sherman Oaks CA 91403. Call (818) 461-9191. Check cashing, currency exchange, MoneyGram & more.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/locations/sherman-oaks-check-cashing/' },
 }
 
 const loc = locations[0]

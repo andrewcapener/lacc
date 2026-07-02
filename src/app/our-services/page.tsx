@@ -6,6 +6,7 @@ import ServiceCard from '@/components/service-card'
 export const metadata: Metadata = {
   title: 'Our Services — Check Cashing, Currency Exchange & More',
   description: 'Los Angeles Check Cashing offers check cashing, currency exchange, notary services, MoneyGram transfers, money orders, and prepaid cards at 3 LA locations.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/our-services/' },
 }
 
 const serviceDetails = [

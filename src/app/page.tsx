@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { locations } from '@/lib/locations'
@@ -8,6 +9,10 @@ import { sanityFetch } from '@/sanity/client'
 import { getRecentPostsQuery } from '@/sanity/queries'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/' },
+}
 
 const marqueeItems = [
   'Check Cashing',
@@ -22,7 +27,6 @@ const marqueeItems = [
   'Open 7 Days',
 ]
 
-const WP = 'https://www.losangelescheckcashing.com/wp-content/uploads'
 
 export default async function HomePage() {
   const posts = await sanityFetch<any[]>(getRecentPostsQuery, { count: 3 }) || []
@@ -383,7 +387,7 @@ export default async function HomePage() {
             <div className="hidden lg:flex items-center justify-center p-16 border-l border-white/10">
               <div className="relative">
                 <Image
-                  src={`${WP}/2023/01/coupon-01.png`}
+                  src="/images/coupon-01.png"
                   alt="50% off your first check cashed"
                   width={380}
                   height={490}

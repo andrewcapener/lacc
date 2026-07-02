@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     siteName: 'Los Angeles Check Cashing',
     locale: 'en_US',
     type: 'website',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Los Angeles Check Cashing' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -37,12 +38,21 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "FinancialService",
+  "@id": "https://www.losangelescheckcashing.com/#organization",
   "name": "Los Angeles Check Cashing",
   "telephone": "(213) 800-2920",
   "url": "https://www.losangelescheckcashing.com",
   "description": "3 Los Angeles Check Cashing Locations to serve your check cashing needs.",
   "areaServed": "Los Angeles, CA",
   "numberOfLocations": 3,
+  "priceRange": "$",
+  "currenciesAccepted": "USD",
+  "paymentAccepted": "Cash, Check",
+  "sameAs": [
+    "https://maps.google.com/?q=15030+Ventura+Blvd+Sherman+Oaks+CA+91403",
+    "https://maps.google.com/?q=8506+W+3rd+Street+Los+Angeles+CA+90048",
+    "https://maps.google.com/?q=9015+DeSoto+Ave+Canoga+Park+CA+91304",
+  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

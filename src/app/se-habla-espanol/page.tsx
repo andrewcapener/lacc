@@ -4,6 +4,7 @@ import { Phone, MapPin } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Se Habla Español — Cambio de Cheques en Los Angeles',
   description: 'Los Angeles Check Cashing — Se habla español. Cambio de cheques, cambio de divisas, giros de MoneyGram y más en 3 ubicaciones en Los Angeles.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/se-habla-espanol/' },
 }
 
 export default function SeHablaEspanolPage() {

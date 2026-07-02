@@ -9,6 +9,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Check Cashing Tips & Resources | Blog',
   description: 'Helpful articles about check cashing, currency exchange, money management, and financial tips in Los Angeles.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/blog/' },
 }
 
 export default async function BlogPage() {

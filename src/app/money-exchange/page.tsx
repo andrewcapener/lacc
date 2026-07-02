@@ -4,6 +4,7 @@ import { Phone, RefreshCw } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Currency Exchange in Los Angeles | Money Exchange',
   description: 'Exchange foreign currency at Los Angeles Check Cashing. We exchange most global currencies at our 3 LA locations: Sherman Oaks, La Cienega, and Canoga Park.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/money-exchange/' },
 }
 
 export default function MoneyExchangePage() {

@@ -54,11 +54,16 @@ export default async function BlogPostPage({ params }: PageProps) {
       <article className="max-w-3xl mx-auto px-4 py-12">
         <time className="text-sm text-gray-500">{formattedDate}</time>
         <h1 className="text-4xl font-extrabold text-gray-900 mt-2 mb-8">{post.title}</h1>
-        {post.body && (
+        {post.body ? (
           <div className="prose prose-gray max-w-none leading-relaxed">
             <PortableText value={post.body} />
           </div>
-        )}
+        ) : post.bodyHtml ? (
+          <div
+            className="prose prose-gray max-w-none leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
+          />
+        ) : null}
       </article>
       <div className="md:hidden h-16" />
     </>

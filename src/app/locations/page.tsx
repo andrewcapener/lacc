@@ -6,6 +6,7 @@ import LocationCard from '@/components/location-card'
 export const metadata: Metadata = {
   title: 'Our 3 Los Angeles Check Cashing Locations',
   description: 'Find a Los Angeles Check Cashing location near you. Sherman Oaks, La Cienega, and Canoga Park. Call (213) 800-2920.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/locations/' },
 }
 
 export default function LocationsPage() {

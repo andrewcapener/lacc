@@ -21,7 +21,7 @@ export default function Nav() {
         <div className="max-w-7xl mx-auto px-5 flex items-center justify-between h-14 md:h-16">
           <Link href="/" className="flex items-center shrink-0" onClick={() => setOpen(false)}>
             <Image
-              src="https://www.losangelescheckcashing.com/wp-content/uploads/2014/06/logo_retina1.png"
+              src="/images/logo.png"
               alt="Los Angeles Check Cashing"
               width={200}
               height={36}

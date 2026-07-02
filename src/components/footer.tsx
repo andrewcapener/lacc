@@ -1,11 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-
-const locations = [
-  { name: 'Sherman Oaks', address: '15030 Ventura Blvd. #20', city: 'Sherman Oaks, CA 91403', phone: '(818) 461-9191', tel: '8184619191', slug: 'sherman-oaks-check-cashing' },
-  { name: 'La Cienega', address: '8506 W. 3rd Street', city: 'Los Angeles, CA 90048', phone: '(310) 652-8100', tel: '3106528100', slug: 'la-cienega-check-cashing' },
-  { name: 'Canoga Park', address: '9015 DeSoto Ave.', city: 'Canoga Park, CA 91304', phone: '(818) 700-0490', tel: '8187000490', slug: 'canoga-park-check-cashing' },
-]
+import { locations } from '@/lib/locations'
 
 const services = [
   { title: 'Check Cashing', href: '/our-services/' },
@@ -38,7 +33,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="flex flex-col gap-6">
           <Image
-            src="https://www.losangelescheckcashing.com/wp-content/uploads/2014/06/logo_retina1.png"
+            src="/images/logo.png"
             alt="Los Angeles Check Cashing"
             width={180}
             height={32}
@@ -70,9 +65,9 @@ export default function Footer() {
         {/* All 3 locations */}
         {locations.map(loc => (
           <div key={loc.name}>
-            <p className="text-xs font-bold tracking-widest uppercase text-white/30 mb-5">{loc.name}</p>
+            <p className="text-xs font-bold tracking-widest uppercase text-white/30 mb-5">{loc.city}</p>
             <p className="text-sm text-white/60 leading-relaxed mb-1">{loc.address}</p>
-            <p className="text-sm text-white/60 leading-relaxed mb-4">{loc.city}</p>
+            <p className="text-sm text-white/60 leading-relaxed mb-4">{loc.city}, {loc.state} {loc.zip}</p>
             <a href={`tel:${loc.tel}`} className="text-sm font-bold text-white hover:text-white/70 transition-colors">
               {loc.phone}
             </a>

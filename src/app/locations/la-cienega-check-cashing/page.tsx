@@ -5,6 +5,7 @@ import { locations, generateLocalBusinessSchema } from '@/lib/locations'
 export const metadata: Metadata = {
   title: 'La Cienega Check Cashing — 8506 W. 3rd Street Los Angeles',
   description: 'Los Angeles Check Cashing on La Cienega. 8506 W. 3rd Street, Los Angeles CA 90048. Call (310) 652-8100. Check cashing, currency exchange & more.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/locations/la-cienega-check-cashing/' },
 }
 
 const loc = locations[1]
