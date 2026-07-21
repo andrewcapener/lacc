@@ -13,6 +13,7 @@ export const getPostBySlugQuery = `*[_type == "post" && slug.current == $slug][0
   excerpt,
   mainImage,
   body,
+  bodyHtml,
   categories
 }`
 

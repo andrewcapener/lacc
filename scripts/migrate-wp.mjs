@@ -87,6 +87,20 @@ function htmlToPortableText(html) {
 }
 
 // ── Build Sanity documents ───────────────────────────────────────
+// Interpret a WordPress local datetime as Pacific and return a true UTC ISO
+// string, independent of the machine running this script.
+function wpDateToISO(dateStr) {
+  const m = dateStr.trim().match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})$/)
+  if (!m) return new Date(dateStr).toISOString()
+  const [, y, mo, d, h, mi, s] = m
+  // Start from the naive instant read as UTC, then subtract Pacific's offset at
+  // that moment (handles PST/PDT correctly across the whole archive).
+  const naiveUTC = Date.UTC(+y, +mo - 1, +d, +h, +mi, +s)
+  const asPacific = new Date(naiveUTC).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+  const offset = new Date(naiveUTC).getTime() - new Date(asPacific + ' UTC').getTime()
+  return new Date(naiveUTC + offset).toISOString()
+}
+
 function slugify(str) {
   return (str || '').toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
 }
@@ -96,7 +110,10 @@ const docs = posts.map(post => {
   const rawSlug = post['wp:post_name']?.__cdata ?? post['wp:post_name'] ?? ''
   const slug = rawSlug || slugify(title)
   const dateStr = post['wp:post_date']?.__cdata ?? post['wp:post_date'] ?? ''
-  const publishedAt = dateStr ? new Date(dateStr).toISOString() : new Date().toISOString()
+  // WP exports "YYYY-MM-DD HH:MM:SS" with no zone; these are America/Los_Angeles
+  // wall-clock times. `new Date(str)` would read them in whatever zone this script
+  // runs in, which silently shifts the post's date -- and therefore its URL.
+  const publishedAt = dateStr ? wpDateToISO(dateStr) : new Date().toISOString()
   const htmlContent = post['content:encoded']?.__cdata ?? post['content:encoded'] ?? ''
   const excerpt = post['excerpt:encoded']?.__cdata ?? post['excerpt:encoded'] ?? ''
 

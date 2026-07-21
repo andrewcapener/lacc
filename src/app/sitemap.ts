@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { sanityFetch } from '@/sanity/client'
 import { getAllPostsForSitemapQuery } from '@/sanity/queries'
+import { postPath } from '@/lib/post-url'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.losangelescheckcashing.com'
 
@@ -23,18 +24,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const posts = await sanityFetch<Array<{ slug: { current: string }, publishedAt: string }>>(getAllPostsForSitemapQuery) || []
 
-  const postRoutes: MetadataRoute.Sitemap = posts.map(post => {
-    const d = new Date(post.publishedAt)
-    const y = d.getFullYear()
-    const m = String(d.getMonth() + 1).padStart(2, '0')
-    const day = String(d.getDate()).padStart(2, '0')
-    return {
-      url: `${BASE_URL}/${y}/${m}/${day}/${post.slug.current}/`,
-      lastModified: new Date(post.publishedAt),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    }
-  })
+  const postRoutes: MetadataRoute.Sitemap = posts.map(post => ({
+    url: BASE_URL + postPath(post.slug.current, post.publishedAt),
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: 'monthly',
+    priority: 0.5,
+  }))
 
   return [...staticRoutes, ...postRoutes]
 }

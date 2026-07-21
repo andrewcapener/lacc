@@ -7,6 +7,7 @@ import StatCounter from '@/components/stat-counter'
 import Marquee from '@/components/marquee'
 import { sanityFetch } from '@/sanity/client'
 import { getRecentPostsQuery } from '@/sanity/queries'
+import { postPath, formatPostDate } from '@/lib/post-url'
 
 export const dynamic = 'force-dynamic'
 
@@ -417,12 +418,11 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#D4D4D4] border-b border-[#D4D4D4]">
               {posts.map((post: any) => {
-                const d = new Date(post.publishedAt)
-                const href = `/${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${post.slug?.current}/`
+                const href = postPath(post.slug?.current, post.publishedAt)
                 return (
                   <Link key={post.slug?.current} href={href} className="group flex flex-col gap-4 p-8 hover:bg-[#F7F5F2] transition-colors">
                     <p className="font-mono text-[10px] tracking-widest uppercase text-[#6B7280]">
-                      {d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                      {formatPostDate(post.publishedAt)}
                     </p>
                     <h3 className="font-display text-2xl text-[#0A0A0A] leading-tight group-hover:text-[#0C3B1E] transition-colors">
                       {post.title}

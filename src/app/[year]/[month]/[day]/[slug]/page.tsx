@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { sanityFetch } from '@/sanity/client'
 import { getPostBySlugQuery } from '@/sanity/queries'
+import { postPath, formatPostDate } from '@/lib/post-url'
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.losangelescheckcashing.com'
 
 export const revalidate = 3600
 
@@ -21,7 +24,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: post.title,
     description: post.excerpt || '',
     alternates: {
-      canonical: `https://www.losangelescheckcashing.com/${params.year}/${params.month}/${params.day}/${params.slug}/`,
+      // Always the post's own canonical path, never the requested one -- otherwise
+      // every date permutation self-canonicalizes into a duplicate.
+      canonical: BASE_URL + postPath(post.slug.current, post.publishedAt),
     },
   }
 }
@@ -30,13 +35,20 @@ export default async function BlogPostPage({ params }: PageProps) {
   const post = await sanityFetch<any>(getPostBySlugQuery, { slug: params.slug })
   if (!post) notFound()
 
+  // The lookup is by slug alone, so any date path would otherwise serve this post
+  // at 200 and self-canonicalize -- an unbounded duplicate URL space. Send every
+  // non-canonical date to the real one with a 301 so signals consolidate.
+  const canonicalPath = postPath(post.slug.current, post.publishedAt)
+  const requestedPath = `/${params.year}/${params.month}/${params.day}/${params.slug}/`
+  if (requestedPath !== canonicalPath) permanentRedirect(canonicalPath)
+
   const blogPostingSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.title,
     "datePublished": post.publishedAt,
     "description": post.excerpt || '',
-    "url": `https://www.losangelescheckcashing.com/${params.year}/${params.month}/${params.day}/${params.slug}/`,
+    "url": BASE_URL + canonicalPath,
     "publisher": {
       "@type": "Organization",
       "name": "Los Angeles Check Cashing",
@@ -44,9 +56,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     }
   }
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  })
+  const formattedDate = formatPostDate(post.publishedAt)
 
   return (
     <>

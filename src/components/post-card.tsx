@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { postPath, formatPostDate } from '@/lib/post-url'
 
 interface PostCardProps {
   post: {
@@ -9,24 +10,11 @@ interface PostCardProps {
   }
 }
 
-function formatDate(dateStr: string) {
-  const d = new Date(dateStr)
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-}
-
-function postUrl(slug: string, publishedAt: string) {
-  const d = new Date(publishedAt)
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `/${y}/${m}/${day}/${slug}/`
-}
-
 export default function PostCard({ post }: PostCardProps) {
-  const href = postUrl(post.slug.current, post.publishedAt)
+  const href = postPath(post.slug.current, post.publishedAt)
   return (
     <article className="border border-gray-200 p-6 rounded-lg hover:border-green-700 transition-colors">
-      <time className="text-sm text-gray-500">{formatDate(post.publishedAt)}</time>
+      <time className="text-sm text-gray-500">{formatPostDate(post.publishedAt)}</time>
       <h3 className="font-bold text-lg text-gray-900 mt-2 mb-2">
         <Link href={href} className="hover:text-green-800 transition-colors">{post.title}</Link>
       </h3>
