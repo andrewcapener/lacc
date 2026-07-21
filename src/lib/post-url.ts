@@ -36,6 +36,42 @@ export function postUrl(slug: string, publishedAt: string, baseUrl: string) {
   return baseUrl.replace(/\/$/, '') + postPath(slug, publishedAt)
 }
 
+function truncateAtWord(text: string, max: number) {
+  if (text.length <= max) return text
+  const cut = text.slice(0, max)
+  const lastSpace = cut.lastIndexOf(' ')
+  return (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).replace(/[\s.,;:]+$/, '') + '…'
+}
+
+/**
+ * A real meta description for a post. The WP migration fell back to using the
+ * title as the excerpt whenever the source excerpt was empty, so most posts
+ * carry a "description" that just repeats the title -- useless for search
+ * snippets. When the excerpt is missing or is just the title, derive a
+ * description from the post body instead.
+ */
+export function postDescription(
+  post: { excerpt?: string; title?: string; body?: any[]; bodyHtml?: string },
+  max = 155,
+): string {
+  const title = (post.title || '').trim()
+  const excerpt = (post.excerpt || '').trim()
+  if (excerpt && excerpt !== title) return truncateAtWord(excerpt, max)
+
+  let text = ''
+  if (Array.isArray(post.body)) {
+    text = post.body
+      .filter((b) => b?._type === 'block' && Array.isArray(b.children))
+      .map((b) => b.children.map((c: any) => c?.text || '').join(''))
+      .join(' ')
+  }
+  if (!text && post.bodyHtml) {
+    text = post.bodyHtml.replace(/<[^>]+>/g, ' ')
+  }
+  text = text.replace(/\s+/g, ' ').trim()
+  return truncateAtWord(text || excerpt || title, max)
+}
+
 /** Human-readable date, also rendered in the site's home timezone. */
 export function formatPostDate(publishedAt: string) {
   return new Date(publishedAt).toLocaleDateString('en-US', {

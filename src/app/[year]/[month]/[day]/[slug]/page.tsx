@@ -3,7 +3,7 @@ import { notFound, permanentRedirect } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { sanityFetch } from '@/sanity/client'
 import { getPostBySlugQuery } from '@/sanity/queries'
-import { postPath, formatPostDate } from '@/lib/post-url'
+import { postPath, formatPostDate, postDescription } from '@/lib/post-url'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.losangelescheckcashing.com'
 
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) return { title: 'Post Not Found' }
   return {
     title: post.title,
-    description: post.excerpt || '',
+    description: postDescription(post),
     alternates: {
       // Always the post's own canonical path, never the requested one -- otherwise
       // every date permutation self-canonicalizes into a duplicate.

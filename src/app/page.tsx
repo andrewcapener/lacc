@@ -65,6 +65,9 @@ export default async function HomePage() {
             {/* Left — headline */}
             <div className="py-14 md:py-20 lg:py-24 lg:pr-20 lg:border-r border-white/10">
               <h1 className="font-display text-[clamp(3.2rem,9vw,8rem)] leading-[0.9] tracking-tight mb-8 md:mb-12">
+                <span className="block font-mono text-[10px] md:text-xs tracking-widest text-white/40 uppercase mb-5 md:mb-7">
+                  Check Cashing in Los Angeles
+                </span>
                 Your Check.<br />
                 <em className="not-italic text-white/40">Cash in Hand.</em>
               </h1>

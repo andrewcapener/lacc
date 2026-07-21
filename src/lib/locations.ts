@@ -10,6 +10,19 @@ export interface Location {
   mapUrl: string
   embedUrl: string
   geo: { latitude: number; longitude: number }
+  // Authoritative external profiles for this location (Google Business Profile,
+  // Yelp, socials). Emitted as schema.org `sameAs`, which is how Google links
+  // this page to the map listing. TODO: paste the real g.page / GBP short URLs.
+  sameAs?: string[]
+}
+
+// The `pb=` embed format Google generates in the "Share > Embed" dialog is tied
+// to a specific place ID; a hand-written one (as the original migration used)
+// resolves to a 400 and renders a blank map. The address-query format below
+// needs no place ID and always resolves. Build every embed through this.
+function embedFor(address: string, city: string, state: string, zip: string) {
+  const q = encodeURIComponent(`${address}, ${city}, ${state} ${zip}`)
+  return `https://maps.google.com/maps?q=${q}&output=embed`
 }
 
 export const locations: Location[] = [
@@ -23,7 +36,7 @@ export const locations: Location[] = [
     tel: "8184619191",
     slug: "sherman-oaks-check-cashing",
     mapUrl: "https://maps.google.com/?q=15030+Ventura+Blvd+Sherman+Oaks+CA+91403",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3302.5!2d-118.4697!3d34.1508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c29607b2a4b17b%3A0x1a2b3c4d5e6f7a8b!2s15030%20Ventura%20Blvd%20%2320%2C%20Sherman%20Oaks%2C%20CA%2091403!5e0!3m2!1sen!2sus!4v1234567890",
+    embedUrl: embedFor("15030 Ventura Blvd. #20", "Sherman Oaks", "CA", "91403"),
     geo: { latitude: 34.1508, longitude: -118.4697 }
   },
   {
@@ -36,7 +49,7 @@ export const locations: Location[] = [
     tel: "3106528100",
     slug: "la-cienega-check-cashing",
     mapUrl: "https://maps.google.com/?q=8506+W+3rd+Street+Los+Angeles+CA+90048",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.1!2d-118.3767!3d34.0728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2b957b1234567%3A0x9a8b7c6d5e4f3a2b!2s8506%20W%203rd%20St%2C%20Los%20Angeles%2C%20CA%2090048!5e0!3m2!1sen!2sus!4v1234567890",
+    embedUrl: embedFor("8506 W. 3rd Street", "Los Angeles", "CA", "90048"),
     geo: { latitude: 34.0728, longitude: -118.3767 }
   },
   {
@@ -49,16 +62,31 @@ export const locations: Location[] = [
     tel: "8187000490",
     slug: "canoga-park-check-cashing",
     mapUrl: "https://maps.google.com/?q=9015+DeSoto+Ave+Canoga+Park+CA+91304",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3296.8!2d-118.5978!3d34.2007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c29f1234567890%3A0xabcdef1234567890!2s9015%20DeSoto%20Ave%2C%20Canoga%20Park%2C%20CA%2091304!5e0!3m2!1sen!2sus!4v1234567890",
+    embedUrl: embedFor("9015 DeSoto Ave.", "Canoga Park", "CA", "91304"),
     geo: { latitude: 34.2007, longitude: -118.5978 }
   }
 ]
 
+const SITE_URL = "https://www.losangelescheckcashing.com"
+
 export function generateLocalBusinessSchema(location: Location) {
+  const url = `${SITE_URL}/locations/${location.slug}/`
   return {
     "@context": "https://schema.org",
     "@type": "FinancialService",
+    // Stable @id lets Google treat all three locations as one business's
+    // branches rather than unrelated entities.
+    "@id": `${url}#business`,
+    // Ties this branch to the site-wide organization entity in layout.tsx.
+    "branchOf": { "@id": `${SITE_URL}/#organization` },
     "name": location.name,
+    "image": `${SITE_URL}/images/check-cashing.png`,
+    "logo": `${SITE_URL}/images/logo.png`,
+    "url": url,
+    "telephone": location.phone,
+    "priceRange": "$",
+    "currenciesAccepted": "USD",
+    "paymentAccepted": "Cash, Check, Debit Card",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": location.address,
@@ -67,13 +95,31 @@ export function generateLocalBusinessSchema(location: Location) {
       "postalCode": location.zip,
       "addressCountry": "US"
     },
-    "telephone": location.phone,
-    "url": `https://www.losangelescheckcashing.com/locations/${location.slug}/`,
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": location.geo.latitude,
       "longitude": location.geo.longitude
     },
-    "openingHours": ["Mo-Sa 09:00-18:00", "Su 10:00-16:00"]
+    "hasMap": location.mapUrl,
+    "areaServed": [
+      { "@type": "City", "name": location.city },
+      { "@type": "City", "name": "Los Angeles" }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "10:00",
+        "closes": "16:00"
+      }
+    ],
+    // Only emitted once real GBP/social URLs are added to the location data.
+    ...(location.sameAs?.length ? { sameAs: location.sameAs } : {})
   }
 }
