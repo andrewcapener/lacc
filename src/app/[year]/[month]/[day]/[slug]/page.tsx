@@ -1,24 +1,39 @@
 import type { Metadata } from 'next'
+import { cache } from 'react'
 import { notFound, permanentRedirect } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { sanityFetch } from '@/sanity/client'
-import { getPostBySlugQuery } from '@/sanity/queries'
-import { postPath, formatPostDate, postDescription } from '@/lib/post-url'
+import { getPostBySlugQuery, getAllPostsForSitemapQuery } from '@/sanity/queries'
+import { postPath, postDateParts, formatPostDate, postDescription } from '@/lib/post-url'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.losangelescheckcashing.com'
 
 export const revalidate = 3600
 
 export async function generateStaticParams() {
-  return []
+  const posts = await sanityFetch<Array<{ slug: { current: string }; publishedAt: string }>>(getAllPostsForSitemapQuery) || []
+  return posts.map(post => ({ ...postDateParts(post.publishedAt), slug: post.slug.current }))
 }
 
 interface PageProps {
   params: { year: string; month: string; day: string; slug: string }
 }
 
+// This route matches ANY four-segment path, so bots probing old WordPress URLs
+// land here constantly. Reject anything that isn't shaped like a real post URL
+// before spending a Sanity round trip on it.
+function isPlausiblePostPath({ year, month, day, slug }: PageProps['params']) {
+  return /^(19|20)\d{2}$/.test(year)
+    && /^(0[1-9]|1[0-2])$/.test(month)
+    && /^(0[1-9]|[12]\d|3[01])$/.test(day)
+    && /^[a-z0-9][a-z0-9-]*$/i.test(slug)
+}
+
+const getPost = cache((slug: string) => sanityFetch<any>(getPostBySlugQuery, { slug }))
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const post = await sanityFetch<any>(getPostBySlugQuery, { slug: params.slug })
+  if (!isPlausiblePostPath(params)) return { title: 'Post Not Found' }
+  const post = await getPost(params.slug)
   if (!post) return { title: 'Post Not Found' }
   return {
     title: post.title,
@@ -32,7 +47,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const post = await sanityFetch<any>(getPostBySlugQuery, { slug: params.slug })
+  if (!isPlausiblePostPath(params)) notFound()
+  const post = await getPost(params.slug)
   if (!post) notFound()
 
   // The lookup is by slug alone, so any date path would otherwise serve this post

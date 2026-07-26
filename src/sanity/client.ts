@@ -12,7 +12,7 @@ async function getClient() {
     projectId: projectId!,
     dataset,
     apiVersion: '2024-01-01',
-    useCdn: false,
+    useCdn: true,
   })
   return _client
 }

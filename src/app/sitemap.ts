@@ -5,6 +5,8 @@ import { postPath } from '@/lib/post-url'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.losangelescheckcashing.com'
 
+export const revalidate = 3600
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL + '/', lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },

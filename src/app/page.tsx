@@ -9,7 +9,7 @@ import { sanityFetch } from '@/sanity/client'
 import { getRecentPostsQuery } from '@/sanity/queries'
 import { postPath, formatPostDate } from '@/lib/post-url'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://www.losangelescheckcashing.com/' },
