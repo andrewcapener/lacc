@@ -1,7 +1,7 @@
-# Deliberate Dynamics — Google Ads / Shopping: First 90 Days
+# Deliberate Dynamics — Google Shopping / Ads Proposal: First 90 Days
 
-**Client:** Deliberate Dynamics (deliberatedynamics.com) — veteran-owned premium tactical/military gear
-**Prepared:** July 2026 · **Status:** Draft for Monday standup
+**Client:** Deliberate Dynamics (deliberatedynamics.com) — veteran-owned premium tactical/military gear · Milkneck client
+**Prepared by:** Andrew Capener · July 2026 · **Status:** Proposal draft for Monday standup
 **Context:** ~$8M/yr B2B through Shopify. Paid D2C is at absolute zero — no Google Ads, no Merchant Center history. Authorized Arc'teryx PRO (ex-LEAF) dealer; also carries Ops-Core, Crye Precision, Salomon Forces, Raven Concealment, plate carriers, MOLLE, apparel, footwear.
 
 ---
