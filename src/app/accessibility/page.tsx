@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Accessibility Statement',
   description: 'Los Angeles Check Cashing is committed to ensuring digital accessibility for people with disabilities.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/accessibility/' },
 }
 
 export default function AccessibilityPage() {

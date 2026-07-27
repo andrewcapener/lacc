@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description: 'Terms of service for Los Angeles Check Cashing.',
+  alternates: { canonical: 'https://www.losangelescheckcashing.com/terms-of-service/' },
 }
 
 export default function TermsOfServicePage() {
