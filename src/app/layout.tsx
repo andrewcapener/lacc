@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter, DM_Serif_Display } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Nav from '@/components/nav'
 import Footer from '@/components/footer'
+
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const dmSerif = DM_Serif_Display({
@@ -66,6 +69,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main>{children}</main>
         <Footer />
+        {GA4_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} strategy="afterInteractive" />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA4_ID}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   )
