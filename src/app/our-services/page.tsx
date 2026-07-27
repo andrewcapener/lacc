@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Phone } from 'lucide-react'
 import { services } from '@/lib/services'
+import { serviceHref } from '@/lib/service-content'
 import ServiceCard from '@/components/service-card'
 
 export const metadata: Metadata = {
@@ -63,6 +65,9 @@ export default function OurServicesPage() {
             {detail.body.split('\n\n').map((para, i) => (
               <p key={i} className="text-gray-600 leading-relaxed mb-4">{para}</p>
             ))}
+            <Link href={serviceHref(detail.id)} className="text-sm font-bold hover:underline" style={{ color: '#1B5E20' }}>
+              Full {detail.title} details &rarr;
+            </Link>
           </section>
         ))}
       </div>

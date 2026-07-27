@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Phone, MapPin } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -15,7 +16,12 @@ export default function SeHablaEspanolPage() {
       </div>
       <h1 className="text-4xl font-extrabold text-gray-900 mb-4">Se Habla Español</h1>
       <p className="text-xl text-gray-600 mb-2">Cambio de Cheques en Los Angeles</p>
-      <p className="text-xl text-gray-600 mb-10">Check Cashing in Los Angeles</p>
+      <p className="text-xl text-gray-600 mb-6">Check Cashing in Los Angeles</p>
+      <p className="mb-10">
+        <Link href="/cambio-de-cheques/" className="font-bold hover:underline" style={{ color: '#1B5E20' }}>
+          Toda la información sobre cambio de cheques en español &rarr;
+        </Link>
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
         <div>

@@ -4,6 +4,7 @@ import { PortableText } from '@portabletext/react'
 import { sanityFetch } from '@/sanity/client'
 import { getPostBySlugQuery } from '@/sanity/queries'
 import { postPath, formatPostDate, postDescription } from '@/lib/post-url'
+import RelatedLinks from '@/components/related-links'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.losangelescheckcashing.com'
 
@@ -79,6 +80,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
           />
         ) : null}
+        <RelatedLinks post={post} />
       </article>
       <div className="md:hidden h-16" />
     </>

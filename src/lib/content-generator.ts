@@ -19,6 +19,13 @@ Writing rules:
 - Mention at least one specific LA location naturally in the content
 - Include the first-time customer offer (50% off first check cashed) where appropriate
 - Phone number for calls: (213) 800-2920
+- Include 2-3 natural internal links (as <a href="..."> in the body HTML) to the most relevant of these pages:
+  /services/check-cashing/ (check cashing), /money-exchange/ (currency exchange),
+  /services/moneygram-money-transfers/ (money transfers), /services/money-orders/ (money orders),
+  /services/notary-services/ (notary), /services/prepaid-cards/ (prepaid cards),
+  /locations/sherman-oaks-check-cashing/, /locations/la-cienega-check-cashing/,
+  /locations/canoga-park-check-cashing/, /find-a-location/
+  Link only where genuinely relevant to the surrounding sentence — never force one in
 - Word count: 800-1200 words
 - Tone: confident, helpful, human — not AI-sounding
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Phone, MapPin, Clock } from 'lucide-react'
 import { locations, generateLocalBusinessSchema } from '@/lib/locations'
+import LocationExtras from '@/components/location-extras'
 
 export const metadata: Metadata = {
   title: 'Sherman Oaks Check Cashing — 15030 Ventura Blvd',
@@ -94,6 +95,7 @@ export default function ShermanOaksPage() {
           </div>
         </div>
       </div>
+      <LocationExtras slug="sherman-oaks-check-cashing" />
       <div className="md:hidden h-16" />
     </>
   )

@@ -3,12 +3,12 @@ import Image from 'next/image'
 import { locations } from '@/lib/locations'
 
 const services = [
-  { title: 'Check Cashing', href: '/our-services/' },
+  { title: 'Check Cashing', href: '/services/check-cashing/' },
   { title: 'Currency Exchange', href: '/money-exchange/' },
-  { title: 'Notary Services', href: '/our-services/' },
-  { title: 'MoneyGram Transfers', href: '/our-services/' },
-  { title: 'Money Orders', href: '/our-services/' },
-  { title: 'Prepaid Cards', href: '/our-services/' },
+  { title: 'Notary Services', href: '/services/notary-services/' },
+  { title: 'MoneyGram Transfers', href: '/services/moneygram-money-transfers/' },
+  { title: 'Money Orders', href: '/services/money-orders/' },
+  { title: 'Prepaid Cards', href: '/services/prepaid-cards/' },
 ]
 
 export default function Footer() {
