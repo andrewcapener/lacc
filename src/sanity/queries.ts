@@ -1,4 +1,4 @@
-export const getAllPostsQuery = `*[_type == "post"] | order(publishedAt desc) {
+export const getAllPostsQuery = `*[_type == "post" && publishedAt <= now()] | order(publishedAt desc) {
   title,
   slug,
   publishedAt,
@@ -17,7 +17,7 @@ export const getPostBySlugQuery = `*[_type == "post" && slug.current == $slug][0
   categories
 }`
 
-export const getRecentPostsQuery = `*[_type == "post"] | order(publishedAt desc) [0...$count] {
+export const getRecentPostsQuery = `*[_type == "post" && publishedAt <= now()] | order(publishedAt desc) [0...$count] {
   title,
   slug,
   publishedAt,
@@ -25,7 +25,7 @@ export const getRecentPostsQuery = `*[_type == "post"] | order(publishedAt desc)
   mainImage
 }`
 
-export const getAllPostsForSitemapQuery = `*[_type == "post"] {
+export const getAllPostsForSitemapQuery = `*[_type == "post" && publishedAt <= now()] {
   slug,
   publishedAt
 }`

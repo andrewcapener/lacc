@@ -35,6 +35,11 @@ export default async function BlogPostPage({ params }: PageProps) {
   const post = await sanityFetch<any>(getPostBySlugQuery, { slug: params.slug })
   if (!post) notFound()
 
+  // Scheduled posts (future publishedAt) must not serve early: they'd get
+  // crawled and indexed with a future date. revalidate=3600 brings each one
+  // live within an hour of its publish time.
+  if (new Date(post.publishedAt) > new Date()) notFound()
+
   // The lookup is by slug alone, so any date path would otherwise serve this post
   // at 200 and self-canonicalize -- an unbounded duplicate URL space. Send every
   // non-canonical date to the real one with a 301 so signals consolidate.
