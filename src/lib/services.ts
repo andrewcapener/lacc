@@ -24,7 +24,7 @@ export const services: Service[] = [
   {
     id: 'notary-services',
     title: 'Notary Services',
-    description: 'Notary services in Los Angeles. Call for availability. Our certified notaries can handle a wide range of document notarizations.',
+    description: 'Notary services at our La Cienega store on W. 3rd Street. Call (310) 652-8100 for availability. Our certified notary handles a wide range of documents.',
     icon: 'FileText',
     slug: 'notary-services',
   },

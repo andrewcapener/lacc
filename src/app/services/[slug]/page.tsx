@@ -30,6 +30,10 @@ export default function ServicePage({ params }: PageProps) {
   const page = servicePages.find(p => p.slug === params.slug)
   if (!page) notFound()
 
+  const serviceLocations = page.locationSlugs
+    ? locations.filter(l => page.locationSlugs!.includes(l.slug))
+    : locations
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -72,9 +76,13 @@ export default function ServicePage({ params }: PageProps) {
 
         {/* Locations */}
         <section className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Available at All 3 Locations</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            {serviceLocations.length === locations.length
+              ? 'Available at All 3 Locations'
+              : `Offered at Our ${serviceLocations[0].city} Location`}
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {locations.map(loc => (
+            {serviceLocations.map(loc => (
               <Link
                 key={loc.slug}
                 href={`/locations/${loc.slug}/`}

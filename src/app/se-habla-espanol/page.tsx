@@ -30,7 +30,7 @@ export default function SeHablaEspanolPage() {
             {[
               { es: 'Cambio de Cheques', en: 'Check Cashing' },
               { es: 'Cambio de Divisas', en: 'Currency Exchange' },
-              { es: 'Servicios Notariales', en: 'Notary Services' },
+              { es: 'Servicios Notariales (solo La Cienega)', en: 'Notary Services (La Cienega only)' },
               { es: 'Transferencias MoneyGram', en: 'MoneyGram Money Transfers' },
               { es: 'Giros Postales', en: 'Money Orders' },
               { es: 'Tarjetas Prepagadas', en: 'Prepaid Debit Cards' },

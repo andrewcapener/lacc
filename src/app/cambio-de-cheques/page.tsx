@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: '¿Cuál es el horario?',
-    answer: 'Lunes a sábado de 9:00 AM a 6:00 PM, y domingo de 10:00 AM a 4:00 PM, en las tres sucursales.',
+    answer: 'Sherman Oaks: lunes a viernes 9 AM–6 PM, sábado 9 AM–3 PM. La Cienega: lunes a viernes 9 AM–5 PM, sábado 9 AM–3 PM. Canoga Park: lunes a viernes 9 AM–7 PM, sábado 10 AM–5 PM. Cerrado los domingos.',
   },
 ]
 
@@ -34,7 +34,7 @@ const otherServices = [
   'Envíos de dinero con MoneyGram',
   'Giros postales (money orders)',
   'Tarjetas de débito prepagadas',
-  'Servicios de notario (llame para confirmar disponibilidad)',
+  'Servicios de notario (solo en La Cienega — llame para confirmar)',
 ]
 
 export default function CambioDeChequesPage() {

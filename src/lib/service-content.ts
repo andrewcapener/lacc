@@ -11,6 +11,8 @@ export interface ServicePage {
   intro: string
   sections: { heading: string; body: string }[]
   faqs: Faq[]
+  // Slugs of the locations offering this service; omitted = all three.
+  locationSlugs?: string[]
 }
 
 // Maps a service id from lib/services to the page that covers it.
@@ -129,33 +131,38 @@ export const servicePages: (ServicePage & { id: string })[] = [
     id: 'notary-services',
     slug: 'notary-services',
     title: 'Notary Services',
-    metaTitle: 'Notary Services in Los Angeles — Certified Notaries, Walk-Ins Welcome',
-    metaDescription: 'Get documents notarized in Los Angeles: affidavits, powers of attorney, loan documents, and more. Call your nearest of our 3 locations to confirm notary availability.',
-    intro: 'Need a document notarized in Los Angeles? Our certified notaries can handle a wide range of document notarizations — affidavits, powers of attorney, loan documents, and more.',
+    metaTitle: 'Notary Services in Los Angeles — La Cienega, Walk-Ins Welcome',
+    metaDescription: 'Get documents notarized at our La Cienega store on W. 3rd Street: affidavits, powers of attorney, loan documents, and more. Call (310) 652-8100 to confirm notary availability.',
+    intro: 'Need a document notarized in Los Angeles? Our certified notary is available at our La Cienega store on W. 3rd Street, near the Beverly Center — handling affidavits, powers of attorney, loan documents, and more.',
     sections: [
       {
         heading: 'Documents We Notarize',
-        body: 'Our notaries handle affidavits, powers of attorney, loan documents, and many other document types. If you\'re not sure whether we can notarize your document, call your nearest location and ask.',
+        body: 'Our notary handles affidavits, powers of attorney, loan documents, and many other document types. If you\'re not sure whether we can notarize your document, call the La Cienega store at (310) 652-8100 and ask.',
       },
       {
         heading: 'Availability',
-        body: 'Notary availability varies by location and day. Call your nearest location to confirm hours and plan your visit — walk-ins are welcome whenever the notary is available.',
+        body: 'Notary service is offered at our La Cienega location only. Availability varies by day, so call ahead to confirm and plan your visit — walk-ins are welcome whenever the notary is in.',
       },
     ],
     faqs: [
       {
+        question: 'Which location offers notary services?',
+        answer: 'Our La Cienega store at 8506 W. 3rd Street, Los Angeles — near the Beverly Center. Notary service is not offered at Sherman Oaks or Canoga Park.',
+      },
+      {
         question: 'What documents can you notarize?',
-        answer: 'Our certified notaries handle affidavits, powers of attorney, loan documents, and a wide range of other documents. Call your nearest location if you\'re unsure about yours.',
+        answer: 'Affidavits, powers of attorney, loan documents, and a wide range of other documents. Call (310) 652-8100 if you\'re unsure about yours.',
       },
       {
         question: 'Do I need an appointment for notary services?',
-        answer: 'Walk-ins are welcome when the notary is available, but availability varies — call your nearest of our three Los Angeles locations first to confirm.',
+        answer: 'Walk-ins are welcome when the notary is available, but availability varies — call the La Cienega store first to confirm.',
       },
       {
         question: 'What should I bring to get a document notarized?',
         answer: 'Bring the complete, unsigned document and a valid government-issued photo ID. Sign in front of the notary, not before.',
       },
     ],
+    locationSlugs: ['la-cienega-check-cashing'],
   },
   {
     id: 'prepaid-cards',

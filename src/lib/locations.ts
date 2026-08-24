@@ -1,3 +1,9 @@
+export interface LocationHours {
+  weekdays: { opens: string; closes: string; label: string }
+  saturday: { opens: string; closes: string; label: string }
+  // All locations are closed Sunday.
+}
+
 export interface Location {
   name: string
   address: string
@@ -10,6 +16,8 @@ export interface Location {
   mapUrl: string
   embedUrl: string
   geo: { latitude: number; longitude: number }
+  hours: LocationHours
+  hasNotary: boolean
   // Authoritative external profiles for this location (Google Business Profile,
   // Yelp, socials). Emitted as schema.org `sameAs`, which is how Google links
   // this page to the map listing. TODO: paste the real g.page / GBP short URLs.
@@ -37,7 +45,12 @@ export const locations: Location[] = [
     slug: "sherman-oaks-check-cashing",
     mapUrl: "https://maps.google.com/?q=15030+Ventura+Blvd+Sherman+Oaks+CA+91403",
     embedUrl: embedFor("15030 Ventura Blvd. #20", "Sherman Oaks", "CA", "91403"),
-    geo: { latitude: 34.1508, longitude: -118.4697 }
+    geo: { latitude: 34.1508, longitude: -118.4697 },
+    hours: {
+      weekdays: { opens: "09:00", closes: "18:00", label: "9:00 AM - 6:00 PM" },
+      saturday: { opens: "09:00", closes: "15:00", label: "9:00 AM - 3:00 PM" },
+    },
+    hasNotary: false
   },
   {
     name: "La Cienega Check Cashing",
@@ -50,7 +63,12 @@ export const locations: Location[] = [
     slug: "la-cienega-check-cashing",
     mapUrl: "https://maps.google.com/?q=8506+W+3rd+Street+Los+Angeles+CA+90048",
     embedUrl: embedFor("8506 W. 3rd Street", "Los Angeles", "CA", "90048"),
-    geo: { latitude: 34.0728, longitude: -118.3767 }
+    geo: { latitude: 34.0728, longitude: -118.3767 },
+    hours: {
+      weekdays: { opens: "09:00", closes: "17:00", label: "9:00 AM - 5:00 PM" },
+      saturday: { opens: "09:00", closes: "15:00", label: "9:00 AM - 3:00 PM" },
+    },
+    hasNotary: true
   },
   {
     name: "Canoga Park Check Cashing",
@@ -63,9 +81,20 @@ export const locations: Location[] = [
     slug: "canoga-park-check-cashing",
     mapUrl: "https://maps.google.com/?q=9015+DeSoto+Ave+Canoga+Park+CA+91304",
     embedUrl: embedFor("9015 DeSoto Ave.", "Canoga Park", "CA", "91304"),
-    geo: { latitude: 34.2007, longitude: -118.5978 }
+    geo: { latitude: 34.2007, longitude: -118.5978 },
+    hours: {
+      weekdays: { opens: "09:00", closes: "19:00", label: "9:00 AM - 7:00 PM" },
+      saturday: { opens: "10:00", closes: "17:00", label: "10:00 AM - 5:00 PM" },
+    },
+    hasNotary: false
   }
 ]
+
+// Display names of the services offered at a given location.
+export function locationServiceNames(location: Location): string[] {
+  const base = ["Check Cashing", "Currency Exchange", "MoneyGram Transfers", "Money Orders", "Prepaid Cards"]
+  return location.hasNotary ? [...base, "Notary Services"] : base
+}
 
 const SITE_URL = "https://www.losangelescheckcashing.com"
 
@@ -108,15 +137,15 @@ export function generateLocalBusinessSchema(location: Location) {
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "09:00",
-        "closes": "18:00"
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": location.hours.weekdays.opens,
+        "closes": location.hours.weekdays.closes
       },
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Sunday",
-        "opens": "10:00",
-        "closes": "16:00"
+        "dayOfWeek": "Saturday",
+        "opens": location.hours.saturday.opens,
+        "closes": location.hours.saturday.closes
       }
     ],
     // Only emitted once real GBP/social URLs are added to the location data.

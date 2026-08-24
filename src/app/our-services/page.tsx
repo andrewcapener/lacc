@@ -25,7 +25,7 @@ const serviceDetails = [
   {
     id: 'notary-services',
     title: 'Notary Services',
-    body: `Need a document notarized in Los Angeles? Our certified notaries are available at our locations. We can notarize a wide range of documents including affidavits, powers of attorney, loan documents, and more.\n\nNotary availability varies — please call your nearest location to confirm hours and schedule your visit. Walk-ins welcome when the notary is available.`,
+    body: `Need a document notarized in Los Angeles? Our certified notary is available at our La Cienega store on W. 3rd Street, near the Beverly Center. We can notarize a wide range of documents including affidavits, powers of attorney, loan documents, and more.\n\nNotary availability varies — please call La Cienega at (310) 652-8100 to confirm before your visit. Walk-ins welcome when the notary is available.`,
   },
   {
     id: 'moneygram',

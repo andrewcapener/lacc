@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Phone, MapPin, Clock } from 'lucide-react'
-import { locations, generateLocalBusinessSchema } from '@/lib/locations'
+import { locations, generateLocalBusinessSchema, locationServiceNames } from '@/lib/locations'
 import LocationExtras from '@/components/location-extras'
 
 export const metadata: Metadata = {
@@ -12,13 +12,9 @@ export const metadata: Metadata = {
 const loc = locations[1]
 
 const hours = [
-  { day: 'Monday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Tuesday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Wednesday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Thursday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Friday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Saturday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Sunday', hours: '10:00 AM - 4:00 PM' },
+  { day: 'Monday - Friday', hours: loc.hours.weekdays.label },
+  { day: 'Saturday', hours: loc.hours.saturday.label },
+  { day: 'Sunday', hours: 'Closed' },
 ]
 
 export default function LaCienegaPage() {
@@ -62,7 +58,7 @@ export default function LaCienegaPage() {
             <div className="p-6 rounded-lg" style={{ backgroundColor: '#E8F5E9' }}>
               <h3 className="font-bold text-gray-900 mb-3">Services at This Location</h3>
               <ul className="text-gray-700 text-sm space-y-2">
-                {['Check Cashing', 'Currency Exchange', 'Notary Services', 'MoneyGram Transfers', 'Money Orders', 'Prepaid Cards'].map(s => (
+                {locationServiceNames(loc).map(s => (
                   <li key={s} className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: '#1B5E20' }} />
                     {s}
