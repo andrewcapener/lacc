@@ -27,19 +27,19 @@ export const servicePages: (ServicePage & { id: string })[] = [
     title: 'Check Cashing',
     metaTitle: 'Check Cashing in Los Angeles — Fast, No Bank Account Needed',
     metaDescription: 'Cash payroll, government, tax refund, insurance, and personal checks at 3 LA locations. Walk in with your check and photo ID, walk out with cash. 50% off your first check.',
-    intro: 'Have a check? We can most likely cash it. Walk into any of our three Los Angeles locations with your check and a valid government-issued photo ID, and walk out with cash in hand. No bank account, no appointment, no waiting for funds to clear.',
+    intro: 'Turn your check into cash in minutes at any of our three LA stores — Sherman Oaks, La Cienega, or Canoga Park. All it takes is the check and a photo ID. There is no bank account requirement, no hold period, and no appointment: you leave with the money the same visit.',
     sections: [
       {
         heading: 'Checks We Cash',
-        body: 'We cash payroll checks, government checks, tax refund checks, insurance checks, personal checks, and more. If you have a check, bring it in — chances are we can turn it into cash on the spot.',
+        body: 'Paychecks from your employer, government and benefits checks, tax refunds, insurance settlements, and personal checks all qualify. Bring in whatever you have — if it can be cashed, we will cash it, usually in the time it takes to count the bills back to you.',
       },
       {
-        heading: 'What You Need',
-        body: 'Just two things: your check and a valid government-issued photo ID. That\'s it. No bank account required, no credit check, no forms to fill out ahead of time.',
+        heading: 'How It Works',
+        body: 'Hand your check and a government-issued photo ID (driver\'s license, state ID, or passport) to the teller. We verify the check while you wait, count out your cash, and you\'re on your way — most visits take just a few minutes. Banks can hold a deposited check for days; here the money is in your pocket before you reach the parking lot.',
       },
       {
-        heading: 'Clear, Posted Fees',
-        body: 'Our fees are competitive and posted clearly at each location, so you always know the cost before you cash. First-time customers save 50% on their first check cashed — just mention the offer when you come in.',
+        heading: 'Know the Cost Before You Cash',
+        body: 'Every fee is on the board at the counter — nothing is calculated behind the scenes and nothing is added later. Serving Los Angeles since 2004, we\'ve built three neighborhood stores on the same promise: fast service and honest, visible pricing. New customers pay half the normal fee on their first check.',
       },
     ],
     faqs: [
