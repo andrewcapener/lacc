@@ -79,7 +79,7 @@ export default function ServicePage({ params }: PageProps) {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             {serviceLocations.length === locations.length
               ? 'Available at All 3 Locations'
-              : `Offered at Our ${serviceLocations[0].city} Location`}
+              : `Offered at Our ${serviceLocations[0].name.replace(' Check Cashing', '')} Location`}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {serviceLocations.map(loc => (
